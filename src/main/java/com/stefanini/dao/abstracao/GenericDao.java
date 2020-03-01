@@ -12,8 +12,8 @@ import javax.validation.Valid;
 
 import com.stefanini.util.IGenericService;
 
-public abstract class GenericDao<T, I extends Serializable> implements IGenericService<T, I>{
 
+public abstract class GenericDao<T, I extends Serializable> implements IGenericService<T, I>{
 
 
 	@Inject
@@ -28,7 +28,10 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericS
 		this();
 		this.persistedClass = persistedClass;
 	}
-
+	
+	/**
+	 * Salvar uma entidade
+	 */
 	public T salvar(@Valid T entity) {
 		EntityTransaction t = iniciarTransacao();
 		entityManager.persist(entity);
@@ -36,6 +39,9 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericS
 		return entity;
 	}
 
+	/**
+	 * Atualizar uma entidade
+	 */
 	public T atualizar(@Valid T entity) {
 		EntityTransaction t = iniciarTransacao();
 		entityManager.merge(entity);
