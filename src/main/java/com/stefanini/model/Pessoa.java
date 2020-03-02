@@ -4,14 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
@@ -25,11 +18,11 @@ public class Pessoa {
 	private Long id;
 
 	@OneToMany(orphanRemoval=true)
-    @JoinColumn(name="co_seq_pessoa")
+    @JoinColumn(name="co_seq_pessoa", foreignKey = @ForeignKey(name="co_seq_pessoa_co_seq_pessoa"))
 	private List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
 	
 	@OneToMany(orphanRemoval=true)
-    @JoinColumn(name="co_seq_pessoa")
+    @JoinColumn(name="co_seq_pessoa", foreignKey = @ForeignKey(name="co_seq_pessoa_co_seq_pessoa"))
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	
 	@Size(min = 3, max = 400)

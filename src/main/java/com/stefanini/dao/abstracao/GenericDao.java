@@ -49,8 +49,6 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericS
 		return entity;
 	}
 
-	
-
 	public void remover(I id) {
 		T entity = encontrar(id);
 		EntityTransaction tx = entityManager.getTransaction();

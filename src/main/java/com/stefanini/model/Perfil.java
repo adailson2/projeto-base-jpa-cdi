@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Perfil {
 	private Integer id;
 	
 	@OneToMany(orphanRemoval=true)
-    @JoinColumn(name="co_seq_perfil")
+    @JoinColumn(name="co_seq_perfil", foreignKey = @ForeignKey(name="co_seq_perfil_co_seq_perfil"))
 	List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
 	
 	@Size(min = 3, max = 255)

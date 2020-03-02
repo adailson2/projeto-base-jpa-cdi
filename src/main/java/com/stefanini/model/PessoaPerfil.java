@@ -16,7 +16,7 @@ public class PessoaPerfil {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_pessoa_perfil")
-	private Long id;
+	private Integer id;
 
 	@ManyToOne
     @JoinColumn(name = "co_seq_pessoa")
@@ -35,11 +35,11 @@ public class PessoaPerfil {
 		this.perfil = perfil;
 	}
 	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
