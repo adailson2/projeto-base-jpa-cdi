@@ -1,12 +1,16 @@
 package com.stefanini.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
@@ -19,6 +23,10 @@ public class Pessoa {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_pessoa")
 	private Long id;
+
+	@OneToMany(orphanRemoval=true)
+    @JoinColumn(name="co_peq_pessoa")
+	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	
 	@Size(min = 3, max = 400)
     @Column(name = "no_nome", length = 400, nullable = false)
@@ -34,7 +42,7 @@ public class Pessoa {
 	
 	@Column(name = "st_pessoa", nullable = false)
 	private Boolean situacao;
-
+	
 	public Pessoa() {
 	}
 
@@ -44,6 +52,22 @@ public class Pessoa {
 		this.email = email;
 		this.dataNascimento = dataNascimento;
 		this.situacao = situacao;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	public String getNome() {

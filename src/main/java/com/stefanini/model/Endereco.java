@@ -1,6 +1,11 @@
 package com.stefanini.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -37,7 +42,7 @@ public class Endereco {
 	public Endereco() {
 	}
 
-	public Endereco(String logradouro, String complemento, String bairro, String cidade, String uf, String cep) {
+	public Endereco(	String logradouro, String complemento, String bairro, String cidade, String uf, String cep) {
 		super();
 		this.logradouro = logradouro;
 		this.complemento = complemento;
@@ -109,6 +114,4 @@ public class Endereco {
 				+ bairro + ", cidade=" + cidade + ", uf=" + uf + ", cep=" + cep + "]";
 	}
 	
-	
-
 }
