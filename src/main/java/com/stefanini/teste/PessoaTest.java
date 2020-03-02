@@ -15,7 +15,6 @@ public class PessoaTest {
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
 		Pessoa pessoa = new Pessoa("JOAO", "joaom.dev@hotmail.com1", LocalDate.of(1995, 8, 25), Boolean.TRUE);
-		pessoa.setNome(null);
 		em.persist(pessoa);
 		em.getTransaction().commit();
 		em.close();

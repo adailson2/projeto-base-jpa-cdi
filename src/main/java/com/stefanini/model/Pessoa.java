@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "TB_PESSOA")
@@ -20,15 +20,19 @@ public class Pessoa {
 	@Column(name = "co_seq_pessoa")
 	private Long id;
 	
-	@Column(name = "no_nome")
+	@Size(min = 3, max = 400)
+    @Column(name = "no_nome", length = 400, nullable = false)
 	private String nome;
+	
 	@Email
-	@NotNull
-	@Column(name = "ds_email")
+	@Size(min = 3, max = 200)
+	@Column(name = "no_email", length = 200, unique = true, nullable = false)
 	private String email;
-	@Column(name = "dt_nascimento")
+	
+	@Column(name = "dt_nascimento", nullable = true)
 	private LocalDate dataNascimento;
-	@Column(name = "st_pessoa")
+	
+	@Column(name = "st_pessoa", nullable = false)
 	private Boolean situacao;
 
 	public Pessoa() {
