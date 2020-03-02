@@ -25,7 +25,11 @@ public class Pessoa {
 	private Long id;
 
 	@OneToMany(orphanRemoval=true)
-    @JoinColumn(name="co_peq_pessoa")
+    @JoinColumn(name="co_seq_pessoa")
+	private List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
+	
+	@OneToMany(orphanRemoval=true)
+    @JoinColumn(name="co_seq_pessoa")
 	private List<Endereco> enderecos = new ArrayList<Endereco>();
 	
 	@Size(min = 3, max = 400)
@@ -42,6 +46,7 @@ public class Pessoa {
 	
 	@Column(name = "st_pessoa", nullable = false)
 	private Boolean situacao;
+	
 	
 	public Pessoa() {
 	}
@@ -100,6 +105,14 @@ public class Pessoa {
 
 	public void setSituacao(Boolean situacao) {
 		this.situacao = situacao;
+	}
+
+	public List<PessoaPerfil> getPessoaPerfil() {
+		return pessoaPerfil;
+	}
+
+	public void setPessoaPerfil(List<PessoaPerfil> pessoaPerfil) {
+		this.pessoaPerfil = pessoaPerfil;
 	}
 
 	@Override

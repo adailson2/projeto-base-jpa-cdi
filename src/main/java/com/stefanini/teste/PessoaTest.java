@@ -14,7 +14,7 @@ public class PessoaTest {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("post");
 		EntityManager em = emf.createEntityManager();
 		em.getTransaction().begin();
-		Pessoa pessoa = new Pessoa("JOAO", "joaom.dev@hotmail.com1", LocalDate.of(1995, 8, 25), Boolean.TRUE);
+		Pessoa pessoa = new Pessoa("JOAO", "joaom.dev@hotmail.com", LocalDate.of(1995, 8, 25), Boolean.TRUE);
 		em.persist(pessoa);
 		em.getTransaction().commit();
 		em.close();

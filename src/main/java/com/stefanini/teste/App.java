@@ -31,7 +31,7 @@ public class App {
 	}
 
 	public void executar() {
-		Pessoa pessoa = new Pessoa("JOAO", "joaom.dev@hotmail.com1", LocalDate.of(1995, 8, 25), Boolean.TRUE);
+		Pessoa pessoa = new Pessoa("João", "joaom.dev@hotmail.com1", LocalDate.of(1995, 8, 25), Boolean.TRUE);
 		Endereco end1 = new Endereco("Quadra", "Casa", "Taguatinga", "Brasília", "DF", "72000000");
 		Endereco end2 = new Endereco("Rua", "Apartamento", "Bairro das Graças", "Rio de Janeiro", "RJ", "75462130");
 		

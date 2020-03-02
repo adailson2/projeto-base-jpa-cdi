@@ -1,8 +1,17 @@
 package com.stefanini.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -13,6 +22,10 @@ public class Perfil {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_perfil")
 	private Integer id;
+	
+	@OneToMany(orphanRemoval=true)
+    @JoinColumn(name="co_seq_perfil")
+	List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
 	
 	@Size(min = 3, max = 255)
     @Column(name = "no_perfil", length = 255, nullable = true)
@@ -27,6 +40,7 @@ public class Perfil {
 	
 	@Column(name = "dt_hora_alteracao", nullable = false)
 	private LocalDateTime horaAlteracao;
+
 	
 	public Perfil() {
 	}
@@ -77,6 +91,14 @@ public class Perfil {
 
 	public void setHoraAlteracao(LocalDateTime horaAlteracao) {
 		this.horaAlteracao = horaAlteracao;
+	}
+
+	public List<PessoaPerfil> getPessoaPerfil() {
+		return pessoaPerfil;
+	}
+
+	public void setPessoaPerfil(List<PessoaPerfil> pessoaPerfil) {
+		this.pessoaPerfil = pessoaPerfil;
 	}
 
 	@Override
