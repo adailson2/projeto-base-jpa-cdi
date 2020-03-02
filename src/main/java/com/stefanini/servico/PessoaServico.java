@@ -16,11 +16,6 @@ public class PessoaServico implements IGenericService<Pessoa, Long>{
 
 	@Override
 	public Pessoa salvar(@Valid Pessoa pessoa) {
-		System.out.println("Passei aqui");
-		pessoa.setNome(pessoa.getNome() + "treinamento");
-		if(pessoa.getNome().toLowerCase().contains("a")) {
-			pessoa.setSituacao(Boolean.FALSE);
-		}
 		return pessoaDao.salvar(pessoa);
 	}
 
