@@ -9,7 +9,7 @@ import com.stefanini.dao.PerfilDao;
 import com.stefanini.model.Perfil;
 import com.stefanini.util.IGenericService;
 
-public class PerfilServico implements IGenericService<Perfil, Long>{
+public class PerfilServico implements IGenericService<Perfil, Integer>{
 
 	@Inject
 	private PerfilDao perfilDao;
@@ -26,7 +26,7 @@ public class PerfilServico implements IGenericService<Perfil, Long>{
 	}
 
 	@Override
-	public void remover(Long id) {
+	public void remover(Integer id) {
 		perfilDao.remover(id);
 	}
 
@@ -37,7 +37,7 @@ public class PerfilServico implements IGenericService<Perfil, Long>{
 	}
 
 	@Override
-	public Perfil encontrar(Long id) {
+	public Perfil encontrar(Integer id) {
 		// TODO Auto-generated method stub
 		return perfilDao.encontrar(id);
 	}

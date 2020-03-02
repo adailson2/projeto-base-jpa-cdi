@@ -3,7 +3,6 @@ package com.stefanini.model;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -13,7 +12,7 @@ public class Perfil {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_perfil")
-	private Long id;
+	private Integer id;
 	
 	@Size(min = 3, max = 255)
     @Column(name = "no_perfil", length = 255, nullable = true)
@@ -40,11 +39,11 @@ public class Perfil {
 		this.horaAlteracao = horaAlteracao;
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
