@@ -43,9 +43,9 @@ public class App {
 	}
 
 	public void executar() {
-		buscarPessoas();
+//		buscarPessoas();
 //		encontrarPessoaPorId(5L);
-//		salvarPessoa();
+		salvarPessoa();
 //		removerPessoa();
 	}
 
@@ -67,6 +67,7 @@ public class App {
 	private void buscarPessoas() {
 		pessoaServico.getList().ifPresent(i -> {
 			i.forEach(b -> {
+				System.out.println(b.getEnderecos());
 				System.out.println(b);
 			});
 		});
@@ -74,6 +75,7 @@ public class App {
 
 	public void salvarPessoa() {
 		Pessoa pessoa = new Pessoa("ADAILSON", "adailson2@gmail.com", LocalDate.of(1993, 1, 26), true);
+		System.out.println(pessoa);
 		pessoaServico.salvar(pessoa);
 	}
 }

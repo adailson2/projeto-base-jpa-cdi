@@ -1,11 +1,6 @@
 package com.stefanini.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
@@ -65,7 +60,11 @@ public class Endereco implements Serializable {
 	@Size(min = 8, max = 8)
     @Column(name = "ds_cep", length = 8, nullable = true)
 	private String cep;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "co_seq_pessoa", referencedColumnName = "co_seq_pessoa", nullable = false)
+	private Pessoa pessoa;
+
 	public Endereco() {
 	}
 
@@ -142,6 +141,14 @@ public class Endereco implements Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	@Override

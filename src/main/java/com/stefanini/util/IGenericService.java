@@ -22,7 +22,7 @@ public interface IGenericService<T, I extends Serializable> {
 	 */
 	T atualizar(@Valid T entity);
 
-	void remover(I id);
+	void remover(@Valid I id);
 
 	Optional<List<T>> getList();
 

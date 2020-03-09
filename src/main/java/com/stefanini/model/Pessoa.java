@@ -5,9 +5,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -26,20 +28,6 @@ public class Pessoa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_pessoa")
 	private Long id;
-
-	/**
-	 * Relacionamento associativo
-	 */
-	@OneToMany(orphanRemoval=true)
-    @JoinColumn(name="co_seq_pessoa", foreignKey = @ForeignKey(name="co_seq_pessoa_co_seq_pessoa"))
-	private List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
-
-	/**
-	 * Relacionamento um pra muitos
-	 */
-	@OneToMany(orphanRemoval=true)
-    @JoinColumn(name="co_seq_pessoa", foreignKey = @ForeignKey(name="co_seq_pessoa_co_seq_pessoa"))
-	private List<Endereco> enderecos = new ArrayList<Endereco>();
 
 	/**
 	 * Nome da pessoa
@@ -69,6 +57,16 @@ public class Pessoa implements Serializable {
 	private Boolean situacao;
 
 	/**
+	 * Relacionamento associativo
+	 */
+	@OneToMany(orphanRemoval=true)
+	@JoinColumn(name="co_seq_pessoa", foreignKey = @ForeignKey(name="co_seq_pessoa_co_seq_pessoa"))
+	private List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
+
+	@OneToMany(mappedBy= "pessoa")
+	private Set<Endereco> enderecos;
+
+	/**
 	 * Metodo construtor da classe
 	 */
 	public Pessoa() {
@@ -81,7 +79,7 @@ public class Pessoa implements Serializable {
 	 * @param dataNascimento
 	 * @param situacao
 	 */
-	public Pessoa(String nome, String email, LocalDate dataNascimento, Boolean situacao) {
+	public Pessoa(@NotNull String nome, @NotNull String email, @NotNull LocalDate dataNascimento, @NotNull Boolean situacao) {
 		super();
 		this.nome = nome;
 		this.email = email;
@@ -95,14 +93,6 @@ public class Pessoa implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
 	}
 
 	public String getNome() {
@@ -143,6 +133,14 @@ public class Pessoa implements Serializable {
 
 	public void setPessoaPerfil(List<PessoaPerfil> pessoaPerfil) {
 		this.pessoaPerfil = pessoaPerfil;
+	}
+
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(Set<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override

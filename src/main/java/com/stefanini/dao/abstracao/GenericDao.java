@@ -58,7 +58,7 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericS
 	/**
 	 * Sempre que for executar uma DML é necessario abrir uma transacao e fecha-la, pois senão a operacao não será comitada
 	 */
-	public void remover(I id) {
+	public void remover(@Valid I id) {
 		T entity = encontrar(id).get();
 		EntityTransaction t = iniciarTransacao();
 		getEntityManager().remove(entity);
