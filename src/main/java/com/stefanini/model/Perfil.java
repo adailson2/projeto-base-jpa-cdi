@@ -1,8 +1,10 @@
 package com.stefanini.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,35 +19,64 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "TB_PERFIL")
-public class Perfil {
+public class Perfil implements Serializable {
 
+	/**
+	 * Serializacao da Classe
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * ID da Tabela
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_perfil")
 	private Integer id;
-	
+
+	/**
+	 * Relacionamento associativo
+	 */
 	@OneToMany(orphanRemoval=true)
     @JoinColumn(name="co_seq_perfil", foreignKey = @ForeignKey(name="co_seq_perfil_co_seq_perfil"))
 	List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
-	
+
+	/**
+	 * Nome do Perfil
+	 */
 	@Size(min = 3, max = 255)
     @Column(name = "no_perfil", length = 255, nullable = true)
 	private String perfil;
-	
+
+	/**
+	 * Descrição do Perfil
+	 */
 	@Size(min = 3, max = 1000)
 	@Column(name = "ds_perfil", length = 1000, nullable = false)
 	private String descricao;
-	
+
+	/**
+	 * Data e hora da inclusão
+	 */
 	@Column(name = "dt_hora_inclusao", nullable = false)
 	private LocalDateTime horaInclusao;
-	
+
+	/**
+	 * Data e hora da inclusão
+	 */
 	@Column(name = "dt_hora_alteracao", nullable = false)
 	private LocalDateTime horaAlteracao;
 
-	
 	public Perfil() {
 	}
 
+	/**
+	 * Construtor da Classe, Obrigando receber todos os parametros
+	 * @param perfil
+	 * @param descricao
+	 * @param horaInclusao
+	 * @param horaAlteracao
+	 */
 	public Perfil(String perfil, String descricao, LocalDateTime horaInclusao,  LocalDateTime horaAlteracao) {
 		super();
 		this.perfil = perfil;
@@ -100,6 +131,19 @@ public class Perfil {
 
 	public void setPessoaPerfil(List<PessoaPerfil> pessoaPerfil) {
 		this.pessoaPerfil = pessoaPerfil;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Perfil perfil = (Perfil) o;
+		return Objects.equals(id, perfil.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 
 	@Override

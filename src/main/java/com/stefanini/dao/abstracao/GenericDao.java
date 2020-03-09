@@ -2,6 +2,7 @@ package com.stefanini.dao.abstracao;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -19,19 +20,23 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericS
 	@Inject
 	protected EntityManager entityManager;
 
-	private Class<T> persistedClass;
+	/**
+	 * Classe que será efetuada as transacoes
+	 */
+	private Class<T> classe;
 
 	protected GenericDao() {
 	}
 
-	protected GenericDao(Class<T> persistedClass) {
+	protected GenericDao(Class<T> classe) {
 		this();
-		this.persistedClass = persistedClass;
+		this.classe = classe;
 	}
-	
+
 	/**
-	 * Salvar uma entidade
-	 */
+	 * @valid serve para validar a entidade antes de entrar no método.
+	 * Sempre que for executar uma DML é necessario abrir uma transacao e fecha-la, pois senão a operacao não será comitada
+	 * */
 	public T salvar(@Valid T entity) {
 		EntityTransaction t = iniciarTransacao();
 		entityManager.persist(entity);
@@ -40,8 +45,9 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericS
 	}
 
 	/**
-	 * Atualizar uma entidade
-	 */
+	 * @valid serve para validar a entidade antes de entrar no método.
+	 * Sempre que for executar uma DML é necessario abrir uma transacao e fecha-la, pois senão a operacao não será comitada
+	 * */
 	public T atualizar(@Valid T entity) {
 		EntityTransaction t = iniciarTransacao();
 		entityManager.merge(entity);
@@ -49,35 +55,57 @@ public abstract class GenericDao<T, I extends Serializable> implements IGenericS
 		return entity;
 	}
 
+	/**
+	 * Sempre que for executar uma DML é necessario abrir uma transacao e fecha-la, pois senão a operacao não será comitada
+	 */
 	public void remover(I id) {
-		T entity = encontrar(id);
-		EntityTransaction tx = entityManager.getTransaction();
-		tx.begin();
-		T mergedEntity = entityManager.merge(entity);
-		entityManager.remove(mergedEntity);
-		finalizarTransacao(tx);
+		T entity = encontrar(id).get();
+		EntityTransaction t = iniciarTransacao();
+		getEntityManager().remove(entity);
+		finalizarTransacao(t);
 	}
 
-	public List<T> getList() {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<T> query = builder.createQuery(persistedClass);
-		query.from(persistedClass);
-		return entityManager.createQuery(query).getResultList();
+	/**
+	 * Não precisa de transação para efetuar DQL
+	 */
+	public Optional<List<T>> getList() {
+		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<T> query = builder.createQuery(classe);
+		query.from(classe);
+		return Optional.of(getEntityManager().createQuery(query).getResultList());
+	}
+	/**
+	 * Não precisa de Transacao para efetuar DQL
+	 */
+	public Optional<T> encontrar(I id) {
+		return Optional.of(getEntityManager().find(classe, id));
 	}
 
-	public T encontrar(I id) {
-		return entityManager.find(persistedClass, id);
-	}
-	
-	
+	/**
+	 * Comitar a transcao e liberar o
+	 * @param t
+	 */
 	private void finalizarTransacao(EntityTransaction t) {
+		// SINCRONIZAR OS DADOS COM O BANCO
 		entityManager.flush();
 		t.commit();
 	}
 
+	/**
+	 * Abrir uma transação com o banco
+	 * @return
+	 */
 	private EntityTransaction iniciarTransacao() {
 		EntityTransaction t = entityManager.getTransaction();
 		t.begin();
 		return t;
+	}
+
+	/**
+	 * Obter o EntityManager
+	 * @return
+	 */
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 }

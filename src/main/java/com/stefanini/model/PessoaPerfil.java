@@ -13,15 +13,24 @@ import javax.persistence.Table;
 @Table(name = "TB_PESSOA_PERFIL")
 public class PessoaPerfil {
 
+	/**
+	 * ID da Tabela
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_pessoa_perfil")
 	private Integer id;
 
+	/**
+	 * Relacionamento associativo
+	 */
 	@ManyToOne
     @JoinColumn(name = "co_seq_pessoa")
     private Pessoa pessoa;
-	
+
+	/**
+	 * Relacionamento associativo
+	 */
 	@ManyToOne
     @JoinColumn(name = "co_seq_perfil")
     private Perfil perfil;
@@ -29,6 +38,11 @@ public class PessoaPerfil {
 	public PessoaPerfil() {
 	}
 
+	/**
+	 * Construtor da Classe, Obrigando receber todos os parametros
+	 * @param pessoa
+	 * @param perfil
+	 */
 	public PessoaPerfil(Pessoa pessoa, Perfil perfil) {
 		super();
 		this.pessoa = pessoa;

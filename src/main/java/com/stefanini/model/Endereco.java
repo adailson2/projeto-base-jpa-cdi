@@ -7,34 +7,61 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "TB_ENDERECO")
-public class Endereco {
+public class Endereco implements Serializable {
 
+	/**
+	 * Serializacao da Classe
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * ID da Tabela
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "co_seq_endereco")
 	private Integer id;
-	
+
+	/**
+	 * Logradouro
+	 */
 	@Size(min = 3, max = 150)
     @Column(name = "ds_logradouro", length = 150, nullable = true)
 	private String logradouro;
 
+	/**
+	 * Descrição do Complemento
+	 */
 	@Size(min = 3, max = 150)
     @Column(name = "ds_complemento", length = 150, nullable = true)
 	private String complemento;
-	
+
+	/**
+	 * Descrição do Bairro
+	 */
 	@Size(min = 3, max = 250)
     @Column(name = "ds_bairro", length = 150, nullable = true)
 	private String bairro;
-	
+
+	/**
+	 * Descrição da Cidade
+	 */
     @Column(name = "ds_cidade", nullable = true)
 	private String cidade;
-	
+
+	/**
+	 * UF
+	 */
     @Column(name = "co_uf", nullable = true)
 	private String uf;
-	
+
+	/**
+	 * CEP
+	 */
 	@Size(min = 8, max = 8)
     @Column(name = "ds_cep", length = 8, nullable = true)
 	private String cep;
@@ -42,6 +69,15 @@ public class Endereco {
 	public Endereco() {
 	}
 
+	/**
+	 * Construtor da Classe, Obrigando receber todos os parametros
+	 * @param logradouro
+	 * @param complemento
+	 * @param bairro
+	 * @param cidade
+	 * @param uf
+	 * @param cep
+	 */
 	public Endereco(	String logradouro, String complemento, String bairro, String cidade, String uf, String cep) {
 		super();
 		this.logradouro = logradouro;

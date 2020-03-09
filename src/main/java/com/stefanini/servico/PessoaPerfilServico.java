@@ -1,14 +1,19 @@
 package com.stefanini.servico;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
 
 import com.stefanini.dao.PessoaPerfilDao;
 import com.stefanini.model.PessoaPerfil;
 import com.stefanini.util.IGenericService;
 
+/**
+ * Classe que contém regras de negócio para a Entidade associativa
+ */
 public class PessoaPerfilServico implements IGenericService<PessoaPerfil, Integer>{
 
 	@Inject
@@ -31,13 +36,13 @@ public class PessoaPerfilServico implements IGenericService<PessoaPerfil, Intege
 	}
 
 	@Override
-	public List<PessoaPerfil> getList() {
+	public Optional<List<PessoaPerfil>> getList() {
 		// TODO Auto-generated method stub
 		return pessoaPerfilDao.getList();
 	}
 
 	@Override
-	public PessoaPerfil encontrar(Integer id) {
+	public Optional<PessoaPerfil> encontrar(Integer id) {
 		// TODO Auto-generated method stub
 		return pessoaPerfilDao.encontrar(id);
 	}

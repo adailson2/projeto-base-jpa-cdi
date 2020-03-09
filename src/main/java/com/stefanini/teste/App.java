@@ -3,6 +3,7 @@ package com.stefanini.teste;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Optional;
 
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
@@ -42,29 +43,37 @@ public class App {
 	}
 
 	public void executar() {
-		Pessoa pessoa = new Pessoa("João", "joaom.dev@hotmail.com1", LocalDate.of(1995, 8, 25), Boolean.TRUE);
-		Endereco end1 = new Endereco("Quadra", "Casa", "Taguatinga", "Brasília", "DF", "72000000");
-		Endereco end2 = new Endereco("Rua", "Apartamento", "Bairro das Graças", "Rio de Janeiro", "RJ", "75462130");
-		
-		Perfil perfilAdmin = new Perfil("ROLE_ADMIN", "Perfil de administrador", LocalDateTime.now(), LocalDateTime.now());
-		Perfil perfilUser = new Perfil("ROLE_USER", "Perfil de usário", LocalDateTime.now(), LocalDateTime.now());
-		
-		pessoa.setEnderecos(Arrays.asList(end1, end2));
-		
-		perfilServico.salvar(perfilAdmin);
-		perfilServico.salvar(perfilUser);
-		
-		enderecoServico.salvar(end1);
-		enderecoServico.salvar(end2);
-		
+		buscarPessoas();
+//		encontrarPessoaPorId(5L);
+//		salvarPessoa();
+//		removerPessoa();
+	}
+
+	private void remover() {
+		System.out.println(pessoaServico.encontrar(1L));
+		pessoaServico.remover(5L);
+	}
+
+	private void encontrarPessoaPorId(Long id) {
+		Optional<Pessoa> pessoa = pessoaServico.encontrar(id);
+		if (pessoa.isPresent()) {
+			System.out.println("Pessoa encontrada");
+			System.out.println(pessoa.get());
+		} else {
+			System.out.println("Pessoa não encontrada");
+		}
+	}
+
+	private void buscarPessoas() {
+		pessoaServico.getList().ifPresent(i -> {
+			i.forEach(b -> {
+				System.out.println(b);
+			});
+		});
+	}
+
+	public void salvarPessoa() {
+		Pessoa pessoa = new Pessoa("ADAILSON", "adailson2@gmail.com", LocalDate.of(1993, 1, 26), true);
 		pessoaServico.salvar(pessoa);
-		
-		PessoaPerfil pessoaAdmin = new PessoaPerfil(pessoa, perfilAdmin);
-		PessoaPerfil pessoaUser = new PessoaPerfil(pessoa, perfilUser);
-		
-		pessoa.setPessoaPerfil(Arrays.asList(pessoaAdmin, pessoaUser));
-		
-		pessoaPerfilServico.salvar(pessoaAdmin);
-		pessoaPerfilServico.salvar(pessoaUser);
 	}
 }
