@@ -82,3 +82,14 @@ REFERENCES public.TB_PESSOA (CO_SEQ_PESSOA)
 ON DELETE NO ACTION
 ON UPDATE NO ACTION
 NOT DEFERRABLE;
+
+INSERT INTO public.tb_pessoa ( no_nome, ds_email, dt_nascimento, st_pessoa) VALUES ( 'JOAO', 'joaom.dev@hotmail.com1', '1995-08-25', true);
+
+INSERT INTO public.tb_perfil ( no_perfil, ds_perfil, dt_hora_inclusao, dt_hora_alteracao)
+VALUES ( 'ADMIN', 'PERFIL DE ADMINISTRADOR', current_timestamp, null);
+
+insert into tb_pessoa_perfil(co_seq_pessoa, co_seq_perfil) VALUES ((select co_seq_pessoa from tb_pessoa where no_nome = 'JOAO'),
+                                                                   (select co_seq_perfil from tb_perfil where no_perfil = 'ADMIN'));
+
+INSERT INTO public.tb_endereco (co_seq_endereco, co_seq_pessoa, ds_logradouro, ds_complemento, ds_bairro, ds_cidade, co_uf, ds_cep)
+VALUES (DEFAULT, (select co_seq_pessoa from tb_pessoa where no_nome = 'JOAO'), 'Gemétris Chácara 3', 'CASA X', 'Vicente Pires', 'Brasília', 'DF', '72001100');

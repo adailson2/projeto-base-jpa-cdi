@@ -2,7 +2,6 @@ package com.stefanini.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -14,6 +13,12 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "TB_PESSOA")
+@NamedQueries(value = {
+		@NamedQuery(name = "Pessoa.findByNome",
+				query = "select p from Pessoa p where p.nome=:nome"),
+		@NamedQuery(name = "Pessoa.findPerfilsAndEnderecosByNome",
+				query = "select  p from Pessoa p  JOIN FETCH p.perfils perfil JOIN FETCH p.enderecos enderecos where p.nome=:nome")
+})
 public class Pessoa implements Serializable {
 
 	/**
@@ -57,13 +62,21 @@ public class Pessoa implements Serializable {
 	private Boolean situacao;
 
 	/**
-	 * Relacionamento associativo
+	 * Mapeamento de Perfis Unidirecional
 	 */
-	@OneToMany(orphanRemoval=true)
-	@JoinColumn(name="co_seq_pessoa", foreignKey = @ForeignKey(name="co_seq_pessoa_co_seq_pessoa"))
-	private List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "TB_PESSOA_PERFIL",
+			joinColumns = {@JoinColumn(name = "co_seq_pessoa")},
+			inverseJoinColumns = {@JoinColumn(name = "co_seq_perfil")}
+	)
+	private Set<Perfil> perfils;
 
-	@OneToMany(mappedBy= "pessoa")
+	/**
+	 * Mapeamento de Enderecos Unidirecional
+	 */
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "CO_SEQ_PESSOA",referencedColumnName = "CO_SEQ_PESSOA")
 	private Set<Endereco> enderecos;
 
 	/**
@@ -127,20 +140,20 @@ public class Pessoa implements Serializable {
 		this.situacao = situacao;
 	}
 
-	public List<PessoaPerfil> getPessoaPerfil() {
-		return pessoaPerfil;
-	}
-
-	public void setPessoaPerfil(List<PessoaPerfil> pessoaPerfil) {
-		this.pessoaPerfil = pessoaPerfil;
-	}
-
 	public Set<Endereco> getEnderecos() {
 		return enderecos;
 	}
 
 	public void setEnderecos(Set<Endereco> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public Set<Perfil> getPerfils() {
+		return perfils;
+	}
+
+	public void setPerfils(Set<Perfil> perfils) {
+		this.perfils = perfils;
 	}
 
 	@Override
