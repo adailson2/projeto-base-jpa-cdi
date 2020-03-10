@@ -31,40 +31,33 @@ public class Perfil implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "co_seq_perfil")
+	@Column(name = "CO_SEQ_PERFIL")
 	private Integer id;
-
-	/**
-	 * Relacionamento associativo
-	 */
-	@OneToMany(orphanRemoval=true)
-    @JoinColumn(name="co_seq_perfil", foreignKey = @ForeignKey(name="co_seq_perfil_co_seq_perfil"))
-	List<PessoaPerfil> pessoaPerfil = new ArrayList<PessoaPerfil>();
 
 	/**
 	 * Nome do Perfil
 	 */
 	@Size(min = 3, max = 255)
-    @Column(name = "no_perfil", length = 255, nullable = true)
+    @Column(name = "NO_PERFIL", length = 255, nullable = true)
 	private String perfil;
 
 	/**
 	 * Descrição do Perfil
 	 */
 	@Size(min = 3, max = 1000)
-	@Column(name = "ds_perfil", length = 1000, nullable = false)
+	@Column(name = "DS_PERFIL", length = 1000, nullable = false)
 	private String descricao;
 
 	/**
 	 * Data e hora da inclusão
 	 */
-	@Column(name = "dt_hora_inclusao", nullable = false)
+	@Column(name = "DT_HORA_INCLUSAO", nullable = false)
 	private LocalDateTime horaInclusao;
 
 	/**
 	 * Data e hora da inclusão
 	 */
-	@Column(name = "dt_hora_alteracao", nullable = false)
+	@Column(name = "DT_HORA_ALTERACAO", nullable = false)
 	private LocalDateTime horaAlteracao;
 
 	public Perfil() {
@@ -123,14 +116,6 @@ public class Perfil implements Serializable {
 
 	public void setHoraAlteracao(LocalDateTime horaAlteracao) {
 		this.horaAlteracao = horaAlteracao;
-	}
-
-	public List<PessoaPerfil> getPessoaPerfil() {
-		return pessoaPerfil;
-	}
-
-	public void setPessoaPerfil(List<PessoaPerfil> pessoaPerfil) {
-		this.pessoaPerfil = pessoaPerfil;
 	}
 
 	@Override

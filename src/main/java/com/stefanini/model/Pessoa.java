@@ -2,7 +2,6 @@ package com.stefanini.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -31,14 +30,14 @@ public class Pessoa implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "co_seq_pessoa")
+	@Column(name = "CO_SEQ_PESSOA")
 	private Long id;
 
 	/**
 	 * Nome da pessoa
 	 */
 	@Size(min = 3, max = 400)
-    @Column(name = "no_nome", length = 400, nullable = false)
+    @Column(name = "NO_NOME", length = 400, nullable = false)
 	private String nome;
 
 	/**
@@ -46,31 +45,20 @@ public class Pessoa implements Serializable {
 	 */
 	@Email
 	@Size(min = 3, max = 200)
-	@Column(name = "no_email", length = 200, unique = true, nullable = false)
+	@Column(name = "DS_EMAIL", length = 200, unique = true, nullable = false)
 	private String email;
 
 	/**
 	 * Data da Nascimento
 	 */
-	@Column(name = "dt_nascimento", nullable = true)
+	@Column(name = "DT_NASCIMENTO", nullable = true)
 	private LocalDate dataNascimento;
 
 	/**
 	 * Situação da pessoa
 	 */
-	@Column(name = "st_pessoa", nullable = false)
+	@Column(name = "ST_PESSOA", nullable = false)
 	private Boolean situacao;
-
-	/**
-	 * Mapeamento de Perfis Unidirecional
-	 */
-	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	@JoinTable(
-			name = "TB_PESSOA_PERFIL",
-			joinColumns = {@JoinColumn(name = "co_seq_pessoa")},
-			inverseJoinColumns = {@JoinColumn(name = "co_seq_perfil")}
-	)
-	private Set<Perfil> perfils;
 
 	/**
 	 * Mapeamento de Enderecos Unidirecional
@@ -78,6 +66,17 @@ public class Pessoa implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CO_SEQ_PESSOA",referencedColumnName = "CO_SEQ_PESSOA")
 	private Set<Endereco> enderecos;
+
+	/**
+	 * Mapeamento de Perfis Unidirecional
+	 */
+	@ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinTable(
+			name = "TB_PESSOA_PERFIL",
+			joinColumns = {@JoinColumn(name = "CO_SEQ_PESSOA")},
+			inverseJoinColumns = {@JoinColumn(name = "CO_SEQ_PERFIL")}
+	)
+	private Set<Perfil> perfils;
 
 	/**
 	 * Metodo construtor da classe
@@ -99,7 +98,7 @@ public class Pessoa implements Serializable {
 		this.dataNascimento = dataNascimento;
 		this.situacao = situacao;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}

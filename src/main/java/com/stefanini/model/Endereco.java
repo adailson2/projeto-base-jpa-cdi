@@ -18,47 +18,47 @@ public class Endereco implements Serializable {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "co_seq_endereco")
+	@Column(name = "CO_SEQ_ENDERECO")
 	private Integer id;
 
 	/**
 	 * Logradouro
 	 */
 	@Size(min = 3, max = 150)
-    @Column(name = "ds_logradouro", length = 150, nullable = true)
+    @Column(name = "DS_LOGRADOURO", length = 150, nullable = true)
 	private String logradouro;
 
 	/**
 	 * Descrição do Complemento
 	 */
 	@Size(min = 3, max = 150)
-    @Column(name = "ds_complemento", length = 150, nullable = true)
+    @Column(name = "DS_COMPLEMENTO", length = 150, nullable = true)
 	private String complemento;
 
 	/**
 	 * Descrição do Bairro
 	 */
 	@Size(min = 3, max = 250)
-    @Column(name = "ds_bairro", length = 150, nullable = true)
+    @Column(name = "DS_BAIRRO", length = 150, nullable = true)
 	private String bairro;
 
 	/**
 	 * Descrição da Cidade
 	 */
-    @Column(name = "ds_cidade", nullable = true)
+    @Column(name = "DS_CIDADE", nullable = true)
 	private String cidade;
 
 	/**
 	 * UF
 	 */
-    @Column(name = "co_uf", nullable = true)
+    @Column(name = "CO_UF", nullable = true)
 	private String uf;
 
 	/**
 	 * CEP
 	 */
 	@Size(min = 8, max = 8)
-    @Column(name = "ds_cep", length = 8, nullable = true)
+    @Column(name = "DS_CEP", length = 8, nullable = true)
 	private String cep;
 
 	/**
@@ -159,5 +159,5 @@ public class Endereco implements Serializable {
 		return "Endereco [id=" + id + ", logradouro=" + logradouro + ", complemento=" + complemento + ", bairro="
 				+ bairro + ", cidade=" + cidade + ", uf=" + uf + ", cep=" + cep + "]";
 	}
-	
+
 }

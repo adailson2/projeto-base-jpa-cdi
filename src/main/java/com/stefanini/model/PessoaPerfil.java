@@ -18,23 +18,23 @@ public class PessoaPerfil {
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "co_seq_pessoa_perfil")
+	@Column(name = "CO_SEQ_PESSOA_PERFIL")
 	private Integer id;
 
 	/**
 	 * Relacionamento associativo
 	 */
 	@ManyToOne
-    @JoinColumn(name = "co_seq_pessoa")
+    @JoinColumn(name = "CO_SEQ_PESSOA")
     private Pessoa pessoa;
 
 	/**
 	 * Relacionamento associativo
 	 */
 	@ManyToOne
-    @JoinColumn(name = "co_seq_perfil")
+    @JoinColumn(name = "CO_SEQ_PERFIL")
     private Perfil perfil;
-		
+
 	public PessoaPerfil() {
 	}
 
@@ -48,7 +48,7 @@ public class PessoaPerfil {
 		this.pessoa = pessoa;
 		this.perfil = perfil;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
