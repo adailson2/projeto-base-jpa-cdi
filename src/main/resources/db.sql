@@ -84,18 +84,23 @@ NOT DEFERRABLE;
 
 INSERT INTO public.tb_pessoa ( no_nome, ds_email, dt_nascimento, st_pessoa) VALUES ( 'ADAILSON', 'joaom.dev@hotmail.com1', '1995-08-25', true);
 
-INSERT INTO public.tb_pessoa ( no_nome, ds_email, dt_nascimento, st_pessoa) VALUES ( 'ADAILSON', 'joaom.dev@hotmail.com1', '1995-08-25', true);
+INSERT INTO public.tb_pessoa ( no_nome, ds_email, dt_nascimento, st_pessoa) VALUES ( 'JOSE', 'josedev@hotmail.com1', '1990-01-20', true);
 
 
 INSERT INTO public.tb_perfil ( no_perfil, ds_perfil, dt_hora_inclusao, dt_hora_alteracao)
 VALUES ( 'ADMIN', 'PERFIL DE ADMINISTRADOR', current_timestamp, null);
 
+INSERT INTO public.tb_perfil ( no_perfil, ds_perfil, dt_hora_inclusao, dt_hora_alteracao)
+VALUES ( 'USER', 'PERFIL DE USUÁRIO', current_timestamp, null);
+
 insert into tb_pessoa_perfil(co_seq_pessoa, co_seq_perfil) VALUES ((select co_seq_pessoa from tb_pessoa where no_nome = 'ADAILSON'),
                                                                    (select co_seq_perfil from tb_perfil where no_perfil = 'ADMIN'));
+
+insert into tb_pessoa_perfil(co_seq_pessoa, co_seq_perfil) VALUES ((select co_seq_pessoa from tb_pessoa where no_nome = 'JOSE'),
+                                                                   (select co_seq_perfil from tb_perfil where no_perfil = 'USER'));
 
 INSERT INTO public.tb_endereco (co_seq_endereco, co_seq_pessoa, ds_logradouro, ds_complemento, ds_bairro, ds_cidade, co_uf, ds_cep)
 VALUES (DEFAULT, (select co_seq_pessoa from tb_pessoa where no_nome = 'ADAILSON'), 'Gemétris Chácara 3', 'CASA X', 'Vicente Pires', 'Brasília', 'DF', '72001100');
 
-
 INSERT INTO public.tb_endereco (co_seq_endereco, co_seq_pessoa, ds_logradouro, ds_complemento, ds_bairro, ds_cidade, co_uf, ds_cep)
-VALUES (DEFAULT, (select co_seq_pessoa from tb_pessoa where no_nome = 'ADAILSON'), 'Gemétris Chácara 3', 'CASA X', 'São Paulo', 'São Paulo', 'SP', '72001100');
+VALUES (DEFAULT, (select co_seq_pessoa from tb_pessoa where no_nome = 'JOSE'), 'Gemétris Chácara 3', 'CASA X', 'Vicente Pires', 'São Paulo', 'SP', '72001100');
